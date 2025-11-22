@@ -1,14 +1,16 @@
-import { verifySession, getProfile, getCredits, getReferrals } from '@/lib/dal'
+import { verifySession, getProfile, getCredits, getReferrals, getTransactions } from '@/lib/dal'
 import { Navbar } from '@/components/Navbar'
 import { StatsCards } from '@/components/dashboard/StatsCards'
 import { InviteSection } from '@/components/dashboard/InviteSection'
 import { ReferralTable } from '@/components/dashboard/ReferralTable'
+import { TransactionHistory } from '@/components/dashboard/TransactionHistory'
 
 export default async function DashboardPage() {
   const user = await verifySession()
   const profile = await getProfile(user.id)
   const totalMileage = await getCredits(user.id)
   const referrals = await getReferrals(user.id)
+  const transactions = await getTransactions(user.id)
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -24,6 +26,10 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
           <InviteSection referralCode={profile?.referral_code || ''} />
           <ReferralTable referrals={referrals || []} />
+        </div>
+
+        <div className="mt-8">
+          <TransactionHistory transactions={transactions || []} />
         </div>
       </main>
     </div>

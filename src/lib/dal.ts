@@ -57,3 +57,26 @@ export const getReferrer = cache(async (referralCode: string) => {
     .single()
   return data
 })
+
+export const getTransactions = cache(async (userId: string) => {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('credits')
+    .select(`
+      amount,
+      source_type,
+      created_at,
+      source_user:source_user_id (
+        email,
+        full_name,
+        avatar_url
+      )
+    `)
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+  
+  return data?.map(tx => ({
+    ...tx,
+    source_user: Array.isArray(tx.source_user) ? tx.source_user[0] : tx.source_user
+  }))
+})
