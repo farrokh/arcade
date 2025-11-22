@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Copy, Check } from 'lucide-react'
 
+import { toast } from 'sonner'
 import { inviteUser } from '@/lib/actions'
 
 export function InviteSection({ referralCode }: { referralCode: string }) {
@@ -32,13 +33,13 @@ export function InviteSection({ referralCode }: { referralCode: string }) {
       const result = await inviteUser(null, formData)
       
       if (result.error) {
-        setMessage(result.error)
+        toast.error(result.error)
       } else {
-        setMessage('Invite sent!')
+        toast.success('Invite sent!')
         setEmail('')
       }
     } catch (error) {
-      setMessage('Something went wrong')
+      toast.error('Something went wrong')
     } finally {
       setLoading(false)
     }

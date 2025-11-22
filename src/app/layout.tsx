@@ -10,16 +10,19 @@ export const metadata: Metadata = {
   description: 'The world\'s first universal autonomous driving protocol.',
 };
 
+import { Toaster } from 'sonner'
+
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en" className="dark">
-      <body className={cn(inter.className, "bg-black min-h-screen antialiased")}>
+    <html lang="en">
+      <body className={`${inter.className} bg-black text-white`}>
         {children}
+        <Toaster position="top-center" theme="dark" />
       </body>
     </html>
-  );
+  )
 }

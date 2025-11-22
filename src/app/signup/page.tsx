@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { AuthForm } from '@/components/auth-form'
 import { Navbar } from '@/components/Navbar'
 import { getReferrer } from '@/lib/dal'
@@ -18,7 +19,9 @@ export default async function SignupPage({
     <main className="min-h-screen bg-zinc-950 flex flex-col">
       <Navbar />
       <div className="flex-1 flex items-center justify-center px-4">
-        <AuthForm type="signup" referrer={referrer} />
+        <Suspense fallback={<div className="text-white">Loading...</div>}>
+          <AuthForm type="signup" referrer={referrer} />
+        </Suspense>
       </div>
     </main>
   )

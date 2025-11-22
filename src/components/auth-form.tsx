@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { toast } from 'sonner'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from './ui/button'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -49,7 +50,7 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
           },
         })
         if (error) throw error
-        alert('Check your email for the confirmation link!')
+        toast.success('Check your email for the confirmation link!')
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email,
