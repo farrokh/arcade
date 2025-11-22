@@ -3,6 +3,7 @@ import { Navbar } from '@/components/Navbar'
 import { StatsCards } from '@/components/dashboard/StatsCards'
 import { InviteSection } from '@/components/dashboard/InviteSection'
 import { ReferralTable } from '@/components/dashboard/ReferralTable'
+import { MileageChart } from '@/components/dashboard/MileageChart'
 import { TransactionHistory } from '@/components/dashboard/TransactionHistory'
 
 export default async function DashboardPage() {
@@ -29,13 +30,10 @@ export default async function DashboardPage() {
         </div>
 
         <div className="mt-8">
+          <MileageChart transactions={transactions || []} />
           <TransactionHistory 
             transactions={transactions || []} 
-            currentUser={{
-              email: user.email || '',
-              full_name: profile?.full_name,
-              avatar_url: profile?.avatar_url
-            }}
+            currentUser={profile || { email: user.email || '' }}
           />
         </div>
       </main>
