@@ -1,11 +1,15 @@
 import { Hero } from '@/components/Hero'
 import { Navbar } from '@/components/Navbar'
+import { getUser, getCredits } from '@/lib/dal'
 
-export default function Home() {
+export default async function Home() {
+  const user = await getUser()
+  const mileage = user ? await getCredits(user.id) : 0
+
   return (
     <main className="min-h-screen bg-black text-white selection:bg-cyan-500/30">
       <Navbar />
-      <Hero />
+      <Hero user={user} mileage={mileage} />
       
       <section id="how-it-works" className="py-32 px-6 bg-black">
         <div className="max-w-7xl mx-auto">
