@@ -17,7 +17,7 @@ export function Hero({ user, mileage }: HeroProps) {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/UAP-hero.avif"
+          src="/hero-image.avif"
           alt="UAP Hero"
           fill
           className="object-cover opacity-60"

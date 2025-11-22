@@ -22,7 +22,7 @@ export const getProfile = cache(async (userId: string) => {
   const supabase = await createClient()
   const { data } = await supabase
     .from('users')
-    .select('referral_code, full_name, avatar_url')
+    .select('referral_code, full_name, avatar_url, email')
     .eq('id', userId)
     .single()
   return data
@@ -60,23 +60,13 @@ export const getReferrer = cache(async (referralCode: string) => {
 
 export const getTransactions = cache(async (userId: string) => {
   const supabase = await createClient()
-  const { data } = await supabase
-    .from('credits')
-    .select(`
-      amount,
-      source_type,
-      created_at,
-      source_user:source_user_id (
-        email,
-        full_name,
-        avatar_url
-      )
-    `)
-    .eq('user_id', userId)
-    .order('created_at', { ascending: false })
+  const { data, error } = await supabase
+    .rpc('get_enriched_transactions', { target_user_id: userId })
   
-  return data?.map(tx => ({
-    ...tx,
-    source_user: Array.isArray(tx.source_user) ? tx.source_user[0] : tx.source_user
-  }))
+  if (error) {
+    console.error('Error fetching transactions:', error)
+    return []
+  }
+  
+  return data
 })

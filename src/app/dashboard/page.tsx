@@ -29,7 +29,14 @@ export default async function DashboardPage() {
         </div>
 
         <div className="mt-8">
-          <TransactionHistory transactions={transactions || []} />
+          <TransactionHistory 
+            transactions={transactions || []} 
+            currentUser={{
+              email: user.email || '',
+              full_name: profile?.full_name,
+              avatar_url: profile?.avatar_url
+            }}
+          />
         </div>
       </main>
     </div>
