@@ -1,22 +1,23 @@
-# AutoPilot - Self-Driving Car Referral System
+# UAP - Universal Autonomous Protocol
 
-A Next.js application for a fictional self-driving car product, featuring a recursive referral system where users earn mileage credits for inviting friends.
+A Next.js application for the Universal Autonomous Protocol, featuring a recursive referral system where users earn mileage credits for expanding the network.
 
 ## Features
 
 -   **Viral Referral System**:
     -   **Sign Up Bonus**: 100 miles.
     -   **Direct Referral**: 50 miles.
-    -   **Recursive Referral**: Earn credits when your friends invite others (up to 5 levels deep).
+    -   **Recursive Referral**: Earn credits when your friends invite others (up to 10 levels deep).
 -   **Dashboard**: Real-time mileage counter, referral tracking, and invite management.
 -   **Mailing System**: Integrated with Resend to send invite emails.
--   **Modern UI**: Built with Tailwind CSS, Framer Motion, and a dark/futuristic aesthetic.
+-   **Modern UI**: "Cyberpunk Luxury" aesthetic with glassmorphism, neon accents, and digital HUD elements.
 
 ## Tech Stack
 
--   **Framework**: Next.js 14 (App Router)
+-   **Framework**: Next.js 16 (App Router)
 -   **Language**: TypeScript
--   **Styling**: Tailwind CSS
+-   **Styling**: Tailwind CSS v4
+-   **Runtime**: Bun
 -   **Database & Auth**: Supabase
 -   **Email**: Resend
 -   **Animations**: Framer Motion
@@ -25,7 +26,7 @@ A Next.js application for a fictional self-driving car product, featuring a recu
 
 ### Prerequisites
 
--   Node.js 18+
+-   Bun v1.0+
 -   Supabase Account
 -   Resend Account
 
@@ -53,8 +54,13 @@ A Next.js application for a fictional self-driving car product, featuring a recu
     RESEND_API_KEY=your_resend_api_key
     ```
 
-4.  Set up Database:
-    Run the SQL commands in `supabase/schema.sql` in your Supabase SQL Editor. This will create the tables, RLS policies, and triggers for the referral logic.
+5.  Set up Database:
+    Run the migration file in `supabase/migrations/20251121235931_initial_schema.sql` in your Supabase SQL Editor.
+    
+    Alternatively, if you have the Supabase CLI installed:
+    ```bash
+    supabase db push
+    ```
 
 5.  Run the development server:
     ```bash
@@ -73,6 +79,11 @@ The easiest way to deploy is to use the [Vercel Platform](https://vercel.com/new
 4.  Deploy!
 
 ## Testing
+
+Run the test suite:
+```bash
+bun run test
+```
 
 Run the build verification:
 ```bash

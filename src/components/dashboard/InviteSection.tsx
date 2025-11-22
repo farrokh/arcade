@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Copy, Check } from 'lucide-react'
 
+import { inviteUser } from '@/lib/actions'
+
 export function InviteSection({ referralCode }: { referralCode: string }) {
   const [copied, setCopied] = useState(false)
   const [email, setEmail] = useState('')
@@ -21,18 +23,19 @@ export function InviteSection({ referralCode }: { referralCode: string }) {
   const handleInvite = async () => {
     setLoading(true)
     setMessage('')
+    
+    const formData = new FormData()
+    formData.append('email', email)
+    formData.append('referralCode', referralCode)
+
     try {
-      const res = await fetch('/api/invite', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, referralCode }),
-      })
-      const data = await res.json()
-      if (res.ok) {
+      const result = await inviteUser(null, formData)
+      
+      if (result.error) {
+        setMessage(result.error)
+      } else {
         setMessage('Invite sent!')
         setEmail('')
-      } else {
-        setMessage(data.error?.message || 'Failed to send invite')
       }
     } catch (error) {
       setMessage('Something went wrong')

@@ -1,40 +1,14 @@
-import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
+import { verifySession, getProfile, getCredits, getReferrals } from '@/lib/dal'
 import { Navbar } from '@/components/Navbar'
 import { StatsCards } from '@/components/dashboard/StatsCards'
 import { InviteSection } from '@/components/dashboard/InviteSection'
 import { ReferralTable } from '@/components/dashboard/ReferralTable'
 
 export default async function DashboardPage() {
-  const supabase = await createClient()
-
-  const { data: { user } } = await supabase.auth.getUser()
-
-  if (!user) {
-    redirect('/login')
-  }
-
-  // Fetch user profile for referral code
-  const { data: profile } = await supabase
-    .from('users')
-    .select('referral_code')
-    .eq('id', user.id)
-    .single()
-
-  // Fetch total credits
-  const { data: credits } = await supabase
-    .from('credits')
-    .select('amount')
-    .eq('user_id', user.id)
-
-  const totalMileage = credits?.reduce((acc, curr) => acc + curr.amount, 0) || 0
-
-  // Fetch direct referrals
-  const { data: referrals } = await supabase
-    .from('users')
-    .select('email, created_at')
-    .eq('referred_by', user.id)
-    .order('created_at', { ascending: false })
+  const user = await verifySession()
+  const profile = await getProfile(user.id)
+  const totalMileage = await getCredits(user.id)
+  const referrals = await getReferrals(user.id)
 
   return (
     <div className="min-h-screen bg-black text-white">

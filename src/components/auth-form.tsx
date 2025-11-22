@@ -3,21 +3,38 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from './ui/button'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
-export function AuthForm({ type }: { type: 'login' | 'signup' }) {
+interface AuthFormProps {
+  type: 'login' | 'signup'
+  referrer?: {
+    full_name: string | null
+    avatar_url: string | null
+    referral_code: string
+  } | null
+}
+
+export function AuthForm({ type, referrer }: AuthFormProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
+  const searchParams = useSearchParams()
   const supabase = createClient()
+
+  // Fallback: use prop or URL param
+  const referralCode = referrer?.referral_code || searchParams.get('ref')
+
+  console.log('AuthForm Render:', { referrer, referralCode })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError(null)
+    
+    console.log('Submitting Signup with Referral Code:', referralCode)
 
     try {
       if (type === 'signup') {
@@ -26,12 +43,12 @@ export function AuthForm({ type }: { type: 'login' | 'signup' }) {
           password,
           options: {
             emailRedirectTo: `${location.origin}/auth/callback`,
+            data: {
+              referral_code: referralCode, // Use the resolved code
+            },
           },
         })
         if (error) throw error
-        // For demo purposes, we might want to auto-login or show a success message
-        // But Supabase usually requires email confirmation by default.
-        // If "Enable email confirmations" is off, it logs in.
         alert('Check your email for the confirmation link!')
       } else {
         const { error } = await supabase.auth.signInWithPassword({
@@ -50,19 +67,51 @@ export function AuthForm({ type }: { type: 'login' | 'signup' }) {
   }
 
   const handleGoogleLogin = async () => {
+    // Store referral code in cookie for callback
+    if (referralCode) {
+      // Set cookie for 30 days
+      document.cookie = `referral_code=${referralCode}; path=/; max-age=2592000; SameSite=Lax`
+    }
+
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: `${location.origin}/auth/callback`,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+        // data: { referral_code: referralCode } // Removed as it's not reliably supported
       },
     })
   }
 
   return (
-    <div className="w-full max-w-md p-8 rounded-2xl bg-zinc-900 border border-white/10">
-      <h2 className="text-2xl font-bold text-white mb-6 text-center">
+    <div className="w-full max-w-md p-8 rounded-2xl bg-zinc-900 border border-white/10 shadow-2xl">
+      {referrer && type === 'signup' && (
+        <div className="mb-8 p-4 rounded-xl bg-zinc-800/50 border border-white/5 flex items-center gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
+          <div className="relative h-12 w-12 rounded-full overflow-hidden border-2 border-cyan-500/30">
+            {referrer.avatar_url ? (
+              <img src={referrer.avatar_url} alt={referrer.full_name || 'Referrer'} className="object-cover w-full h-full" />
+            ) : (
+              <div className="w-full h-full bg-zinc-700 flex items-center justify-center text-zinc-400 font-bold">
+                {(referrer.full_name?.[0] || 'R').toUpperCase()}
+              </div>
+            )}
+          </div>
+          <div>
+            <div className="text-xs text-zinc-400 font-medium uppercase tracking-wider mb-0.5">Invited by</div>
+            <div className="text-white font-semibold">{referrer.full_name || 'A Friend'}</div>
+          </div>
+        </div>
+      )}
+
+      <h2 className="text-2xl font-bold text-white mb-2 text-center">
         {type === 'login' ? 'Welcome Back' : 'Join the Revolution'}
       </h2>
+      <p className="text-zinc-400 text-center mb-8 text-sm">
+        {type === 'login' ? 'Enter your credentials to access the dashboard.' : 'Create an account to start earning mileage.'}
+      </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

@@ -7,36 +7,39 @@ export default function Home() {
       <Navbar />
       <Hero />
       
-      <section id="how-it-works" className="py-24 px-4 bg-zinc-950">
+      <section id="how-it-works" className="py-32 px-6 bg-zinc-950">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
-            Viral <span className="text-cyan-400">Velocity</span>
-          </h2>
+          <div className="text-center mb-24">
+            <h2 className="text-3xl md:text-4xl font-semibold mb-6 tracking-tight text-white">
+              Accelerated Growth
+            </h2>
+            <p className="text-zinc-400 max-w-xl mx-auto text-lg font-light">
+              A referral system designed for exponential scale.
+            </p>
+          </div>
           
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: "Sign Up",
-                desc: "Get 100 miles of autonomous driving credit instantly when you join.",
+                title: "Initialize",
+                desc: "Receive 100 miles of credit immediately upon account activation.",
                 step: "01"
               },
               {
-                title: "Invite Friends",
-                desc: "Earn 50 miles for every friend who joins using your unique code.",
+                title: "Expand",
+                desc: "Grant 50 miles for every direct invitation accepted.",
                 step: "02"
               },
               {
-                title: "Earn Forever",
-                desc: "Get recursive credits when your friends invite their friends. The chain never stops.",
+                title: "Compound",
+                desc: "Accumulate recursive credits through your extended network.",
                 step: "03"
               }
             ].map((item, i) => (
-              <div key={i} className="relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-500/50 transition-colors group">
-                <div className="absolute -top-6 left-8 text-6xl font-bold text-white/5 group-hover:text-cyan-500/10 transition-colors">
-                  {item.step}
-                </div>
-                <h3 className="text-xl font-bold mb-4 text-white">{item.title}</h3>
-                <p className="text-gray-400 leading-relaxed">
+              <div key={i} className="group relative p-8 rounded-2xl bg-zinc-900/30 border border-white/5 hover:bg-zinc-900/50 transition-all duration-500">
+                <div className="text-xs font-medium text-zinc-600 mb-6 tracking-widest">{item.step}</div>
+                <h3 className="text-xl font-medium mb-3 text-white group-hover:text-zinc-200 transition-colors">{item.title}</h3>
+                <p className="text-zinc-400 leading-relaxed font-light">
                   {item.desc}
                 </p>
               </div>

@@ -31,37 +31,37 @@ export function Navbar() {
   }
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-black/50 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <Car className="h-6 w-6 text-cyan-400" />
-            <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              AutoPilot
-            </span>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            {user ? (
-              <>
-                <Link href="/dashboard" className="text-gray-300 hover:text-white transition-colors">
-                  Dashboard
-                </Link>
-                <Button onClick={handleSignOut} variant="outline">
-                  Sign Out
+    <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-zinc-950/80 backdrop-blur-xl">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Car className="h-5 w-5 text-white" />
+          <span className="text-sm font-semibold tracking-wide text-white uppercase">
+            UAP
+          </span>
+        </div>
+        
+        <div className="flex items-center gap-8">
+          {user ? (
+            <>
+              <Link href="/dashboard" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+                Dashboard
+              </Link>
+              <Button onClick={handleSignOut} variant="ghost" className="text-sm font-medium text-zinc-400 hover:text-white hover:bg-transparent px-0">
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+                Log in
+              </Link>
+              <Link href="/signup">
+                <Button className="rounded-full h-9 px-6 text-sm bg-white hover:bg-zinc-200 text-black font-medium transition-all">
+                  Get Started
                 </Button>
-              </>
-            ) : (
-              <>
-                <Link href="/login" className="text-gray-300 hover:text-white transition-colors">
-                  Login
-                </Link>
-                <Link href="/signup">
-                  <Button>Get Started</Button>
-                </Link>
-              </>
-            )}
-          </div>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>

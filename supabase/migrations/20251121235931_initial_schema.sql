@@ -82,14 +82,17 @@ declare
   current_referrer_id uuid;
   current_depth integer := 0;
   credit_amount integer;
-  base_amount integer := 50;
+  base_amount integer := 100;
 begin
   current_referrer_id := new.referred_by;
   
   -- Loop up the referral chain
-  while current_referrer_id is not null and current_depth < 5 loop -- Limit depth to 5
-    -- Calculate credit: 50 / (depth + 1)
-    credit_amount := base_amount / (current_depth + 1);
+  while current_referrer_id is not null and current_depth < 10 loop -- Limit depth to 10
+    -- Calculate credit: 100 / (depth + 2)
+    -- Depth 0 (Direct): 100 / 2 = 50
+    -- Depth 1 (Indirect): 100 / 3 = 33
+    -- Depth 2 (Indirect): 100 / 4 = 25
+    credit_amount := base_amount / (current_depth + 2);
     
     if credit_amount > 0 then
       insert into public.credits (user_id, amount, source_type, source_user_id)
