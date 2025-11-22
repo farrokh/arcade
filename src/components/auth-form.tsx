@@ -28,8 +28,6 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
   // Fallback: use prop or URL param
   const referralCode = referrer?.referral_code || searchParams.get('ref')
 
-  console.log('AuthForm Render:', { referrer, referralCode })
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)

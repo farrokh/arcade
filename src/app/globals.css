@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
 @layer base {
   :root {
     --background: 240 10% 3.9%;

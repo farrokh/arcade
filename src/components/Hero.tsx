@@ -1,83 +1,54 @@
 'use client'
 
-import { motion, useSpring, useTransform, useMotionValueEvent } from 'framer-motion'
-import { useEffect, useState, useRef } from 'react'
 import { Button } from './ui/button'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export function Hero() {
-  const [mileage, setMileage] = useState(0)
-  const springMileage = useSpring(0, { stiffness: 50, damping: 20 })
-  const displayMileage = useTransform(springMileage, (current) => Math.round(current).toLocaleString())
-  const mileageRef = useRef<HTMLSpanElement>(null)
-
-  useMotionValueEvent(displayMileage, "change", (latest) => {
-    if (mileageRef.current) {
-      mileageRef.current.textContent = latest
-    }
-  })
-
-  useEffect(() => {
-    // Simulate mileage increasing rapidly
-    springMileage.set(12450)
-  }, [springMileage])
-
   return (
-    <div className="relative h-screen w-full overflow-hidden flex flex-col justify-end bg-zinc-950">
-      {/* Abstract Windshield View */}
+    <div className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden bg-black">
+      {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-zinc-950 to-zinc-950" />
-        {/* Subtle Horizon Line */}
-        <div className="absolute top-1/3 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        {/* Moving Road Lines (Subtle) */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:linear-gradient(to_bottom,transparent_30%,black_100%)] transform perspective-[2000px] rotate-x-60 origin-bottom" />
+        <Image
+          src="/UAP-hero.avif"
+          alt="UAP Hero"
+          fill
+          className="object-cover opacity-60"
+          priority
+        />
       </div>
 
-      {/* Dashboard Interface */}
-      <div className="relative z-20 w-full h-[45vh] flex flex-col items-center justify-end pb-16">
-        {/* Glass Dashboard Panel */}
-        <div className="relative w-full max-w-4xl mx-auto">
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 to-zinc-900/0 blur-2xl" />
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-20">
+        <div className="max-w-3xl">
+          <h1 className="text-6xl md:text-8xl font-bold text-white tracking-tighter mb-6 leading-[0.9]">
+            AUTONOMY <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-500">
+              REDEFINED.
+            </span>
+          </h1>
           
-          <div className="relative z-10 flex flex-col items-center">
-            {/* Status Indicators */}
-            <div className="flex gap-12 mb-12 text-[10px] font-medium tracking-[0.2em] text-zinc-500 uppercase">
-              <span className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-emerald-500" /> System Active</span>
-              <span className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-blue-500" /> Network Stable</span>
-              <span className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-white" /> Ready</span>
-            </div>
+          <p className="text-xl md:text-2xl text-zinc-300 max-w-xl mb-10 font-light leading-relaxed">
+            The world's first decentralized protocol for autonomous fleet coordination. Earn rewards for every mile your fleet drives.
+          </p>
 
-            {/* Main Instrument Cluster */}
-            <div className="flex items-center gap-16">
-              {/* Left Gauge (Placeholder) */}
-              <div className="hidden md:block w-32 h-1 bg-gradient-to-r from-transparent to-zinc-800 rounded-full" />
-              
-              {/* Central Mileage */}
-              <div className="flex flex-col items-center">
-                <div className="text-8xl md:text-9xl font-light text-white tracking-tighter tabular-nums drop-shadow-2xl">
-                  <span ref={mileageRef}>0</span>
-                </div>
-                <div className="text-sm font-medium text-zinc-500 tracking-[0.3em] uppercase mt-4">Available Range (mi)</div>
-              </div>
-
-              {/* Right Gauge (Placeholder) */}
-              <div className="hidden md:block w-32 h-1 bg-gradient-to-l from-transparent to-zinc-800 rounded-full" />
-            </div>
-
-            {/* Action Area */}
-            <div className="mt-16 flex flex-col items-center gap-6">
-              <Link href="/signup">
-                <Button className="h-12 px-10 rounded-full bg-white hover:bg-zinc-200 text-black text-sm font-medium tracking-wide transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
-                  Initialize Protocol
-                </Button>
-              </Link>
-              <p className="text-zinc-600 text-sm font-light">
-                Universal Autonomous Protocol v1.0
-              </p>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link href="/signup">
+              <Button className="h-14 px-8 rounded-full bg-white hover:bg-zinc-200 text-black text-base font-semibold tracking-wide transition-all">
+                Start Driving
+              </Button>
+            </Link>
+            <Link href="#how-it-works">
+              <Button variant="outline" className="h-14 px-8 rounded-full border-white/20 hover:bg-white/10 text-white text-base font-medium backdrop-blur-sm transition-all">
+                How it Works
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
+
+      {/* Bottom Fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-10" />
     </div>
   )
 }
