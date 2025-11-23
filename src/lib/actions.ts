@@ -36,7 +36,30 @@ export async function inviteUser(prevState: { error?: string; success?: boolean 
 
   const { email, referralCode } = validatedFields.data
 
-  try {
+    // Check if user already exists
+    const { data: existingUser } = await supabase
+      .from('users')
+      .select('id')
+      .eq('email', email)
+      .single()
+
+    if (existingUser) {
+      return { error: 'User already exists' }
+    }
+
+    // Check if invite already exists
+    const { data: existingInvite } = await supabase
+      .from('invites')
+      .select('id')
+      .eq('email', email)
+      .eq('status', 'pending')
+      .single()
+
+    if (existingInvite) {
+      return { error: 'Invite already sent to this email' }
+    }
+
+    try {
     const { error } = await resend.emails.send({
       from: 'UAP <onboarding@frkia.com>',
       to: [email],
@@ -88,10 +111,45 @@ export async function inviteUsers(prevState: { error?: string; success?: boolean
   const { emails, message, referralCode } = validatedFields.data
   
   // Split emails by comma, newline, or space and filter empty
-  const emailList = emails.split(/[\s,]+/).filter(e => e.length > 0 && e.includes('@'))
+  const rawEmailList = emails.split(/[\s,]+/).filter(e => e.length > 0 && e.includes('@'))
+
+  if (rawEmailList.length === 0) {
+    return { success: false, error: 'No valid emails found', count: 0, failures: 0 }
+  }
+
+  // Filter out existing users and invites
+  const emailList: string[] = []
+  const skippedEmails: string[] = []
+
+  for (const email of rawEmailList) {
+    const { data: existingUser } = await supabase
+      .from('users')
+      .select('id')
+      .eq('email', email)
+      .single()
+
+    if (existingUser) {
+      skippedEmails.push(email)
+      continue
+    }
+
+    const { data: existingInvite } = await supabase
+      .from('invites')
+      .select('id')
+      .eq('email', email)
+      .eq('status', 'pending')
+      .single()
+
+    if (existingInvite) {
+      skippedEmails.push(email)
+      continue
+    }
+
+    emailList.push(email)
+  }
 
   if (emailList.length === 0) {
-    return { success: false, error: 'No valid emails found', count: 0, failures: 0 }
+    return { success: false, error: 'All emails are already registered or invited', count: 0, failures: rawEmailList.length }
   }
 
   try {

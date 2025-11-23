@@ -13,14 +13,14 @@ interface Referral {
 interface ReferralStatsProps {
   referrals: Referral[]
   totalEarned: number
+  pendingInvitesCount: number
 }
 
-export function ReferralStats({ referrals, totalEarned }: ReferralStatsProps) {
+export function ReferralStats({ referrals, totalEarned, pendingInvitesCount }: ReferralStatsProps) {
   const totalReferred = referrals.length
-  // Assuming 'active' means they have earned some credits or logged in recently. 
-  // For now, let's just say active if they have a full_name set (completed onboarding)
-  const activeReferrals = referrals.filter(r => r.full_name).length
-  const pendingReferrals = totalReferred - activeReferrals
+  // Active nodes are those who have signed up (referrals list)
+  const activeReferrals = referrals.length
+  const pendingReferrals = pendingInvitesCount
   
   const stats = [
     {

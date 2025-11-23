@@ -34,4 +34,15 @@ describe('MileageChart', () => {
     // Let's just check if the chart container is present.
     expect(screen.getByRole('img')).toBeInTheDocument()
   })
+  it('renders correctly with a single transaction', () => {
+    const transactions = [
+      { amount: 100, created_at: '2023-01-01T00:00:00Z' }
+    ]
+
+    render(<MileageChart transactions={transactions} />)
+    
+    expect(screen.getByRole('img', { name: /chart showing mileage growth/i })).toBeInTheDocument()
+    // Should show 110 as the top tick (100 * 1.1 rounded)
+    expect(screen.getByText('110')).toBeInTheDocument()
+  })
 })

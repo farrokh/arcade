@@ -17,7 +17,11 @@ export default async function ReferralsPage() {
         <p className="text-gray-400 mt-2">Manage your fleet expansion and track rewards.</p>
       </div>
 
-      <ReferralStats referrals={referrals || []} totalEarned={totalEarned} />
+      <ReferralStats 
+        referrals={referrals || []} 
+        totalEarned={totalEarned} 
+        pendingInvitesCount={pendingInvites?.length || 0}
+      />
       
       <div className="grid grid-cols-1 gap-8">
         <BulkInviteForm referralCode={profile?.referral_code || ''} />

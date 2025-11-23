@@ -64,10 +64,12 @@ export function MileageChart({ transactions }: { transactions: Transaction[] }) 
   const pathD = data.length > 1 
     ? `M ${getX(data[0].date)},${getY(data[0].value)} ` + 
       data.slice(1).map(d => `L ${getX(d.date)},${getY(d.value)}`).join(' ')
-    : `M ${padding.left},${height - padding.bottom} L ${width - padding.right},${height - padding.bottom}` // Flat line if 1 point
+    : `M ${padding.left},${getY(data[0].value)} L ${width - padding.right},${getY(data[0].value)}`
 
   // Generate area path (close the loop)
-  const areaD = `${pathD} L ${getX(data[data.length - 1].date)},${height - padding.bottom} L ${getX(data[0].date)},${height - padding.bottom} Z`
+  const areaD = data.length > 1
+    ? `${pathD} L ${getX(data[data.length - 1].date)},${height - padding.bottom} L ${getX(data[0].date)},${height - padding.bottom} Z`
+    : `${pathD} L ${width - padding.right},${height - padding.bottom} L ${padding.left},${height - padding.bottom} Z`
 
   return (
     <div className="w-full bg-zinc-900/50 border border-white/10 rounded-3xl p-6 backdrop-blur-xl mb-8">
