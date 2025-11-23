@@ -18,9 +18,10 @@ interface ReferralStatsProps {
 
 export function ReferralStats({ referrals, totalEarned, pendingInvitesCount }: ReferralStatsProps) {
   const totalReferred = referrals.length
-  // Active nodes are those who have signed up (referrals list)
-  const activeReferrals = referrals.length
-  const pendingReferrals = pendingInvitesCount
+  // Active nodes are those who have signed up (referrals list) AND have completed their profile (have full_name)
+  const activeReferrals = referrals.filter(r => r.full_name).length
+  // Pending includes pending invites AND referrals who haven't completed their profile
+  const pendingReferrals = (pendingInvitesCount || 0) + (referrals.length - activeReferrals)
   
   const stats = [
     {
