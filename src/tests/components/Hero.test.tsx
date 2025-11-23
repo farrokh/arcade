@@ -25,7 +25,20 @@ jest.mock('next/navigation', () => ({
 // Mock next/image
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: ({ fill, priority, ...props }: any) => <img {...props} />
+  default: (props: React.ImgHTMLAttributes<HTMLImageElement> & { fill?: boolean; priority?: boolean }) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { fill, priority, ...rest } = props
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img {...rest} alt="" />
+  }
+}))
+
+// Mock next/link to avoid act warnings
+jest.mock('next/link', () => ({
+  __esModule: true,
+  default: ({ children, href, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) => (
+    <a href={href} {...props}>{children}</a>
+  )
 }))
 
 // Mock Counter component
@@ -95,7 +108,7 @@ describe('Hero', () => {
     // Render WITH user prop
     render(
       <Hero 
-        user={{ id: '123' } as any} 
+        user={{ id: '123', app_metadata: {}, user_metadata: {}, aud: 'authenticated', created_at: '' }} 
         profile={null} 
         mileage={0} 
         transactions={[]} 
