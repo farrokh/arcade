@@ -114,23 +114,27 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-400 mb-1">Email</label>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-1">Email</label>
           <input
+            id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full px-4 py-2 rounded-md bg-black border border-white/10 text-white focus:border-cyan-500 focus:outline-none transition-colors"
             required
+            aria-label="Email address"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-400 mb-1">Password</label>
+          <label htmlFor="password" className="block text-sm font-medium text-gray-400 mb-1">Password</label>
           <input
+            id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-2 rounded-md bg-black border border-white/10 text-white focus:border-cyan-500 focus:outline-none transition-colors"
             required
+            aria-label="Password"
           />
         </div>
 

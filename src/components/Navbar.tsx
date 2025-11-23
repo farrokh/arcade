@@ -34,7 +34,7 @@ export function Navbar() {
   return (
     <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-zinc-950/80 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2" aria-label="Home">
             <Image src="/logo.svg" alt="UAP Logo" width={24} height={24} className="w-6 h-6" />
             <span className="text-sm font-semibold tracking-wide text-white uppercase">
               UAP

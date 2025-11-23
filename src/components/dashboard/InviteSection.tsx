@@ -59,7 +59,7 @@ export function InviteSection({ referralCode }: { referralCode: string }) {
             <div className="flex-1 px-4 py-2 rounded-md bg-black border border-white/10 text-gray-300 font-mono text-sm truncate">
               {inviteLink || 'Loading...'}
             </div>
-            <Button onClick={handleCopy} variant="outline" className="w-12 px-0">
+            <Button onClick={handleCopy} variant="outline" className="w-12 px-0" aria-label={copied ? "Copied to clipboard" : "Copy invite link"}>
               {copied ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4" />}
             </Button>
           </div>
@@ -72,6 +72,7 @@ export function InviteSection({ referralCode }: { referralCode: string }) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="flex-1 px-4 py-2 rounded-md bg-black border border-white/10 text-white focus:border-cyan-500 focus:outline-none"
+            aria-label="Friend's email address"
           />
           <Button onClick={handleInvite} disabled={loading || !email}>
             {loading ? 'Sending...' : 'Send'}

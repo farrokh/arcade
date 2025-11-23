@@ -38,10 +38,10 @@ export function TransactionHistory({ transactions, currentUser }: TransactionHis
         <table className="w-full text-left">
           <thead>
             <tr className="border-b border-white/5 text-zinc-500 text-sm font-mono uppercase tracking-wider">
-              <th className="pb-4 font-medium w-[140px]">Date</th>
-              <th className="pb-4 font-medium w-[160px]">Source</th>
-              <th className="pb-4 font-medium">From</th>
-              <th className="pb-4 font-medium text-right w-[100px]">Amount</th>
+              <th scope="col" className="pb-4 font-medium w-[140px]">Date</th>
+              <th scope="col" className="pb-4 font-medium w-[160px]">Source</th>
+              <th scope="col" className="pb-4 font-medium">From</th>
+              <th scope="col" className="pb-4 font-medium text-right w-[100px]">Amount</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">

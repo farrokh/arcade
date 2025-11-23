@@ -12,6 +12,11 @@ const BulkInviteSchema = z.object({
   referralCode: z.string().min(1),
 })
 
+const InviteSchema = z.object({
+  email: z.string().email(),
+  referralCode: z.string().min(1),
+})
+
 export async function inviteUser(prevState: any, formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -115,5 +120,36 @@ export async function inviteUsers(prevState: any, formData: FormData) {
   } catch (error) {
     console.error('Server error:', error)
     return { success: false, error: 'Failed to send invites', count: 0, failures: 0 }
+  }
+}
+export async function updateProfile(prevState: any, formData: FormData) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    return { success: false, error: 'Unauthorized' }
+  }
+
+  const fullName = formData.get('fullName') as string
+
+  if (!fullName || fullName.length < 2) {
+    return { success: false, error: 'Name must be at least 2 characters' }
+  }
+
+  try {
+    const { error } = await supabase
+      .from('users')
+      .update({ full_name: fullName })
+      .eq('id', user.id)
+
+    if (error) {
+      console.error('Database error:', error)
+      return { success: false, error: 'Failed to update profile' }
+    }
+
+    return { success: true, error: '' }
+  } catch (error) {
+    console.error('Server error:', error)
+    return { success: false, error: 'Failed to update profile' }
   }
 }

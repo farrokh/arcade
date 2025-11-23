@@ -3,8 +3,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from './ui/button'
+import { X, Github, Linkedin } from 'lucide-react'
 import { Input } from './ui/input'
-import { Twitter, Github, Disc, Linkedin } from 'lucide-react'
 
 export function Footer() {
   return (
@@ -24,16 +24,13 @@ export function Footer() {
               Building the infrastructure for the future of mobility.
             </p>
             <div className="flex gap-4">
-              <Link href="#" className="text-zinc-500 hover:text-white transition-colors">
-                <Twitter className="w-5 h-5" />
+              <Link href="#" className="text-zinc-500 hover:text-white transition-colors" aria-label="Twitter">
+                <X className="w-5 h-5" />
               </Link>
-              <Link href="#" className="text-zinc-500 hover:text-white transition-colors">
+              <Link href="#" className="text-zinc-500 hover:text-white transition-colors" aria-label="GitHub">
                 <Github className="w-5 h-5" />
               </Link>
-              <Link href="#" className="text-zinc-500 hover:text-white transition-colors">
-                <Disc className="w-5 h-5" />
-              </Link>
-              <Link href="#" className="text-zinc-500 hover:text-white transition-colors">
+              <Link href="#" className="text-zinc-500 hover:text-white transition-colors" aria-label="LinkedIn">
                 <Linkedin className="w-5 h-5" />
               </Link>
             </div>
@@ -70,6 +67,7 @@ export function Footer() {
               <Input 
                 type="email" 
                 placeholder="Enter your email" 
+                aria-label="Email address for newsletter"
                 className="bg-zinc-900 border-zinc-800 text-white focus:ring-white/20"
               />
               <Button className="bg-white text-black hover:bg-zinc-200">

@@ -18,12 +18,12 @@ export function CTA() {
           Start earning miles today and be part of the largest decentralized autonomous fleet network.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/signup">
+          <Link href="/">
             <Button className="h-14 px-10 rounded-full bg-white hover:bg-zinc-200 text-black text-lg font-semibold tracking-wide transition-all w-full sm:w-auto">
               Get Started Now
             </Button>
           </Link>
-          <Link href="/login">
+          <Link href="/">
             <Button variant="outline" className="h-14 px-10 rounded-full border-white/20 hover:bg-white/10 text-white text-lg font-medium backdrop-blur-sm transition-all w-full sm:w-auto">
               View Documentation
             </Button>

@@ -14,7 +14,7 @@ export function UserAvatar({ user, label, isSmall = false }: { user: any, label:
           {(user.email || '?')[0].toUpperCase()}
         </div>
       )}
-      <span className="text-[9px] text-zinc-500 truncate w-full text-center">
+      <span className="text-[9px] text-zinc-400 truncate w-full text-center">
         {label}
       </span>
     </div>

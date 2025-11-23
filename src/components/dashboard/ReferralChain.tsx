@@ -41,6 +41,16 @@ export function ReferralChain({ path, currentUser }: { path: any[], currentUser:
       <div 
         className="flex items-start cursor-pointer group/chain"
         onClick={() => setIsExpanded(!isExpanded)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            setIsExpanded(!isExpanded)
+          }
+        }}
+        role="button"
+        tabIndex={0}
+        aria-expanded={isExpanded}
+        aria-label={isExpanded ? "Collapse referral chain" : `Expand referral chain to show ${hiddenCount} more users`}
       >
         <motion.div 
           layout 
@@ -58,7 +68,8 @@ export function ReferralChain({ path, currentUser }: { path: any[], currentUser:
                <div className="flex items-center mt-[4px]">
                  <div className="h-[1px] w-3 border-t border-dashed border-zinc-700 group-hover/chain:border-zinc-500 transition-colors" />
                  <div className="w-6 h-6 rounded-full bg-zinc-900/80 border border-zinc-700 group-hover/chain:border-zinc-500 group-hover/chain:bg-zinc-800 transition-all flex items-center justify-center z-10 -mx-1">
-                   <span className="text-[9px] text-zinc-400 font-mono font-medium">+{hiddenCount}</span>
+                   <span className="text-[9px] text-zinc-400 font-mono font-medium" aria-hidden="true">+{hiddenCount}</span>
+                   <span className="sr-only">{hiddenCount} more users</span>
                  </div>
                  <div className="h-[1px] w-3 border-t border-dashed border-zinc-700 group-hover/chain:border-zinc-500 transition-colors" />
                </div>

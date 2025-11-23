@@ -78,6 +78,8 @@ export function MileageChart({ transactions }: { transactions: Transaction[] }) 
           viewBox={`0 0 ${width} ${height}`} 
           className="w-full h-full overflow-visible"
           onMouseLeave={() => setHoveredPoint(null)}
+          role="img"
+          aria-label="Chart showing mileage growth over time"
         >
           <defs>
             <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">

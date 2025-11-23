@@ -6,23 +6,31 @@ import Image from 'next/image'
 import { User } from '@supabase/supabase-js'
 import { Counter } from './Counter'
 
+type Profile = {
+  referral_code: string
+  full_name: string
+  avatar_url: string
+  email: string
+}
 
 interface HeroProps {
   user: User | null
+  profile: Profile | null
   mileage: number
   transactions: any[]
 }
 
 import { MiniChart } from './MiniChart'
 
-export function Hero({ user, mileage, transactions }: HeroProps) {
+export function Hero({ user, profile, mileage, transactions }: HeroProps) {
+  console.log("user",user)
   return (
     <div className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden bg-black">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/hero-image.avif"
-          alt="UAP Hero"
+          alt="UAP Hero Image showing autonomous fleet"
           fill
           className="object-cover opacity-60"
           priority
@@ -39,7 +47,7 @@ export function Hero({ user, mileage, transactions }: HeroProps) {
               <div className="mb-6">
                 <p className="text-zinc-400 text-lg mb-2 font-mono">WELCOME BACK</p>
                 <h2 className="text-3xl md:text-4xl font-bold text-white">
-                  {user.user_metadata?.full_name || user.email}
+                  {profile?.full_name || user.email}
                 </h2>
               </div>
             ) : null}

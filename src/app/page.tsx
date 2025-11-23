@@ -1,4 +1,4 @@
-import { getUser, getCredits, getTransactions } from '@/lib/dal'
+import { getUser, getCredits, getTransactions, getProfile } from '@/lib/dal'
 import { Hero } from '@/components/Hero'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
@@ -9,13 +9,14 @@ import { CTA } from '@/components/CTA'
 
 export default async function Home() {
   const user = await getUser()
+  const profile = user ? await getProfile(user.id) : null
   const mileage = user ? await getCredits(user.id) : 0
   const transactions = user ? await getTransactions(user.id) : []
 
   return (
     <main className="min-h-screen bg-black text-white selection:bg-cyan-500/30">
       <Navbar />
-      <Hero user={user} mileage={mileage} transactions={transactions} />
+      <Hero user={user} profile={profile} mileage={mileage} transactions={transactions} />
       
       <Stats />
       <Features />

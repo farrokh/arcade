@@ -37,7 +37,7 @@ export function WhyUAP() {
             }
           ].map((feature, i) => (
             <div key={i} className="p-8 rounded-3xl bg-zinc-900/30 border border-white/5 hover:bg-zinc-900/50 transition-colors">
-              <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6 text-white">
+              <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6 text-white" aria-hidden="true">
                 <feature.icon className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
