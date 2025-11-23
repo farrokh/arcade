@@ -54,6 +54,12 @@ export async function inviteUser(prevState: { error?: string; success?: boolean 
       return { error: 'Failed to send invite' }
     }
 
+    // Record invite in database
+    await supabase.from('invites').insert({
+      email,
+      referrer_id: user.id,
+    })
+
     return { success: true }
   } catch (error) {
     console.error('Server error:', error)
@@ -106,6 +112,17 @@ export async function inviteUsers(prevState: { error?: string; success?: boolean
     ))
 
     const failures = results.filter(r => r.status === 'rejected' || (r.status === 'fulfilled' && r.value.error))
+    const successfulEmails = emailList.filter((_, i) => results[i].status === 'fulfilled' && !results[i].value.error)
+
+    // Record successful invites in database
+    if (successfulEmails.length > 0) {
+      await supabase.from('invites').insert(
+        successfulEmails.map(email => ({
+          email,
+          referrer_id: user.id,
+        }))
+      )
+    }
     
     if (failures.length > 0 && failures.length === emailList.length) {
       return { success: false, error: 'Failed to send all invites', count: 0, failures: emailList.length }

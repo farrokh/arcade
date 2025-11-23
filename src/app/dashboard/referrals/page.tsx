@@ -1,4 +1,4 @@
-import { verifySession, getProfile, getReferrals, getCredits } from '@/lib/dal'
+import { verifySession, getProfile, getReferrals, getCredits, getPendingInvites } from '@/lib/dal'
 import { ReferralStats } from '@/components/dashboard/ReferralStats'
 import { BulkInviteForm } from '@/components/dashboard/BulkInviteForm'
 import { ReferralTable } from '@/components/dashboard/ReferralTable'
@@ -7,6 +7,7 @@ export default async function ReferralsPage() {
   const user = await verifySession()
   const profile = await getProfile(user.id)
   const referrals = await getReferrals(user.id)
+  const pendingInvites = await getPendingInvites(user.id)
   const totalEarned = await getCredits(user.id) // Ideally this should be just referral earnings, but using total for now
 
   return (
@@ -23,7 +24,7 @@ export default async function ReferralsPage() {
         
         <div className="mt-8">
           <h2 className="text-xl font-semibold text-white mb-6">Referral History</h2>
-          <ReferralTable referrals={referrals || []} />
+          <ReferralTable referrals={referrals || []} pendingInvites={pendingInvites || []} />
         </div>
       </div>
     </div>

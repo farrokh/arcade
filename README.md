@@ -8,7 +8,7 @@ A Next.js application for the Universal Autonomous Protocol, featuring a recursi
     -   **Sign Up Bonus**: 100 miles.
     -   **Direct Referral**: 50 miles.
     -   **Recursive Referral**: Earn credits when your friends invite others (up to 10 levels deep).
--   **Dashboard**: Real-time mileage counter, referral tracking, and invite management.
+-   **Dashboard**: Real-time mileage counter, referral tracking (Active vs Pending conversions), and invite management.
 -   **Mailing System**: Integrated with Resend to send invite emails.
 -   **Modern UI**: "Cyberpunk Luxury" aesthetic with glassmorphism, neon accents, and digital HUD elements.
 -   **Accessibility**: WCAG compliant with semantic HTML, ARIA labels, and keyboard navigation support.
@@ -90,6 +90,13 @@ Run the build verification:
 ```bash
 bun run build
 ```
+
+## Acknowledgements
+
+This project was built with the assistance of AI coding tools (Google DeepMind's Antigravity) to accelerate development, specifically for:
+- Generating initial component scaffolding
+- Writing unit tests
+- Debugging linting errors
 
 ## License
 

@@ -70,3 +70,15 @@ export const getTransactions = cache(async (userId: string) => {
   
   return data
 })
+
+export const getPendingInvites = cache(async (userId: string) => {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('invites')
+    .select('email, created_at, status')
+    .eq('referrer_id', userId)
+    .eq('status', 'pending')
+    .order('created_at', { ascending: false })
+  
+  return data || []
+})
