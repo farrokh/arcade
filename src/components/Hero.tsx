@@ -23,7 +23,6 @@ interface HeroProps {
 import { MiniChart } from './MiniChart'
 
 export function Hero({ user, profile, mileage, transactions }: HeroProps) {
-  console.log("user",user)
   return (
     <div className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden bg-black">
       {/* Background Image with Overlay */}
@@ -35,8 +34,8 @@ export function Hero({ user, profile, mileage, transactions }: HeroProps) {
           className="object-cover opacity-60"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/5 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-black/10" />
       </div>
 
       {/* Content */}

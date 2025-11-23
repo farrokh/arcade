@@ -124,9 +124,7 @@ export function BulkInviteForm({ referralCode }: { referralCode: string }) {
 
           <div className="p-6 rounded-2xl bg-cyan-500/5 border border-cyan-500/10">
             <h3 className="text-sm font-medium text-cyan-400 mb-2">Pro Tip</h3>
-            <p className="text-xs text-cyan-300/70 leading-relaxed">
-              Users who sign up with your code become permanent nodes in your downstream network. You earn 5% of all their future mileage.
-            </p>
+            <p>Users who sign up with your code become nodes in your network. You earn recursive activation bonuses for every user they invite, up to 10 levels deep.</p>
           </div>
         </div>
       </div>

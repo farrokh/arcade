@@ -1,5 +1,3 @@
-'use client'
-
 import { Shield, Zap, Globe, Cpu } from 'lucide-react'
 
 export function WhyUAP() {

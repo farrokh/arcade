@@ -32,8 +32,6 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
     e.preventDefault()
     setLoading(true)
     setError(null)
-    
-    console.log('Submitting Signup with Referral Code:', referralCode)
 
     try {
       if (type === 'signup') {

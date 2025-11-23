@@ -4,8 +4,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { useEffect, useState } from 'react'
 import { User } from '@supabase/supabase-js'
-import { Button } from './ui/button' // We'll create this next
-import { Car } from 'lucide-react'
+import { Button } from './ui/button'
 import Image from 'next/image'
 
 export function Navbar() {

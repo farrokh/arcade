@@ -11,6 +11,7 @@ A Next.js application for the Universal Autonomous Protocol, featuring a recursi
 -   **Dashboard**: Real-time mileage counter, referral tracking, and invite management.
 -   **Mailing System**: Integrated with Resend to send invite emails.
 -   **Modern UI**: "Cyberpunk Luxury" aesthetic with glassmorphism, neon accents, and digital HUD elements.
+-   **Accessibility**: WCAG compliant with semantic HTML, ARIA labels, and keyboard navigation support.
 
 ## Tech Stack
 
