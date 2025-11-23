@@ -74,11 +74,11 @@ export function TransactionHistory({ transactions, currentUser }: TransactionHis
                           <img src={tx.source_user.avatar_url} alt="" className="w-5 h-5 rounded-full" />
                         ) : (
                           <div className="w-5 h-5 rounded-full bg-zinc-800 flex items-center justify-center text-[10px]">
-                            {tx.source_user.email[0].toUpperCase()}
+                            {(tx.source_user.email || '?')[0].toUpperCase()}
                           </div>
                         )}
                         <span className="truncate max-w-[150px]">
-                          {tx.source_user.full_name || tx.source_user.email.split('@')[0]}
+                          {tx.source_user.full_name || (tx.source_user.email || 'Unknown').split('@')[0]}
                         </span>
                       </div>
                     ) : (

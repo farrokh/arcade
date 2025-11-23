@@ -38,7 +38,7 @@ export async function inviteUser(prevState: any, formData: FormData) {
 
   try {
     const { error } = await resend.emails.send({
-      from: 'UAP <onboarding@resend.dev>',
+      from: 'UAP <onboarding@frkia.com>',
       to: [email],
       subject: 'You have been invited to UAP',
       html: `
@@ -92,7 +92,7 @@ export async function inviteUsers(prevState: any, formData: FormData) {
     // Send emails in parallel
     const results = await Promise.allSettled(emailList.map(email => 
       resend.emails.send({
-        from: 'UAP <onboarding@resend.dev>',
+        from: 'UAP <onboarding@frkia.com>',
         to: [email],
         subject: 'You have been invited to UAP',
         html: `
