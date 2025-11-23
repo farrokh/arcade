@@ -79,17 +79,17 @@ export function ReferralTable({ referrals, pendingInvites = [] }: { referrals: R
                           ? "bg-gradient-to-br from-cyan-500 to-blue-600" 
                           : "bg-zinc-700"
                       )} aria-hidden="true">
-                        {(item as any).avatar_url ? (
+                        {(item as Referral).avatar_url ? (
                           // eslint-disable-next-line @next/next/no-img-element
-                          <img src={(item as any).avatar_url} alt="" className="w-full h-full object-cover rounded-full" />
+                          <img src={(item as Referral).avatar_url || ''} alt="" className="w-full h-full object-cover rounded-full" />
                         ) : (
                           item.email.substring(0, 2).toUpperCase()
                         )}
                       </div>
                       <div>
                         <div className="text-sm text-gray-200">{item.email}</div>
-                        {activeTab === 'active' && (item as any).full_name && (
-                          <div className="text-xs text-gray-500">{(item as any).full_name}</div>
+                        {activeTab === 'active' && (item as Referral).full_name && (
+                          <div className="text-xs text-gray-500">{(item as Referral).full_name}</div>
                         )}
                       </div>
                     </div>
