@@ -36,7 +36,7 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
 
     try {
       if (type === 'signup') {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -47,7 +47,15 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
           },
         })
         if (error) throw error
-        toast.success('Check your email for the confirmation link!')
+
+        if (data.session) {
+          // User is logged in immediately (e.g. email confirmation disabled)
+          router.push('/dashboard')
+          router.refresh()
+        } else {
+          // Email confirmation required
+          toast.success('Check your email for the confirmation link!')
+        }
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email,

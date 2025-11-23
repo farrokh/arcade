@@ -35,8 +35,8 @@ A Next.js application for the Universal Autonomous Protocol, featuring a recursi
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/autopilot.git
-    cd autopilot
+    git clone https://github.com/farrokh/arcade.git
+    cd arcade
     ```
 
 2.  Install dependencies:
@@ -55,13 +55,13 @@ A Next.js application for the Universal Autonomous Protocol, featuring a recursi
     RESEND_API_KEY=your_resend_api_key
     ```
 
-5.  Set up Database:
-    Run the migration file in `supabase/migrations/20251121235931_initial_schema.sql` in your Supabase SQL Editor.
-    
-    Alternatively, if you have the Supabase CLI installed:
+4.  Set up Database:
+    The project uses multiple migration files. The recommended way to set up the database is using the Supabase CLI:
     ```bash
     supabase db push
     ```
+    
+    Alternatively, you can run the SQL files in `supabase/migrations/` sequentially in your Supabase SQL Editor.
 
 5.  Run the development server:
     ```bash
@@ -76,7 +76,7 @@ The easiest way to deploy is to use the [Vercel Platform](https://vercel.com/new
 
 1.  Push your code to a GitHub repository.
 2.  Import the project in Vercel.
-3.  Add the environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `RESEND_API_KEY`).
+3.  Add the environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `RESEND_API_KEY`,`NEXT_PUBLIC_URL`).
 4.  Deploy!
 
 ## Testing

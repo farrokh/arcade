@@ -121,6 +121,31 @@ describe('AuthForm', () => {
       })
     })
 
+    it('redirects to dashboard if signup creates session immediately', async () => {
+      mockSignUp.mockResolvedValue({ 
+        data: { 
+          user: { id: '123' },
+          session: { access_token: 'token' }
+        }, 
+        error: null 
+      })
+
+      render(<AuthForm type="signup" />)
+
+      fireEvent.change(screen.getByLabelText(/email/i), {
+        target: { value: 'immediate@example.com' }
+      })
+      fireEvent.change(screen.getByLabelText(/password/i), {
+        target: { value: 'password123' }
+      })
+      fireEvent.click(screen.getByRole('button', { name: /sign up/i }))
+
+      await waitFor(() => {
+        expect(mockPush).toHaveBeenCalledWith('/dashboard')
+        expect(mockRefresh).toHaveBeenCalled()
+      })
+    })
+
     it('displays error message on signup failure', async () => {
       mockSignUp.mockResolvedValue({
         data: null,

@@ -27,7 +27,26 @@ interface HeroProps {
 
 import { MiniChart } from './MiniChart'
 
+import { createClient } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+
 export function Hero({ user, profile, mileage, transactions }: HeroProps) {
+  const router = useRouter()
+  const supabase = createClient()
+
+  useEffect(() => {
+    if (!user) {
+      const checkUser = async () => {
+        const { data: { session } } = await supabase.auth.getSession()
+        if (session?.user) {
+          router.refresh()
+        }
+      }
+      checkUser()
+    }
+  }, [user, router, supabase])
+
   return (
     <div className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden bg-black">
       {/* Background Image with Overlay */}
