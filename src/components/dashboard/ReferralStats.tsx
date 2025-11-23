@@ -4,7 +4,10 @@ import { motion } from 'framer-motion'
 import { Users, UserPlus, Award, TrendingUp } from 'lucide-react'
 
 interface Referral {
-  is_active?: boolean
+  email: string
+  created_at: string
+  full_name?: string | null
+  avatar_url?: string | null
 }
 
 interface ReferralStatsProps {
