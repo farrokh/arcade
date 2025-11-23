@@ -9,6 +9,13 @@ jest.mock('@/lib/actions', () => ({
   inviteUser: jest.fn()
 }))
 
+// Mock next/navigation
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    refresh: jest.fn()
+  })
+}))
+
 // Mock sonner toast
 jest.mock('sonner', () => ({
   toast: {

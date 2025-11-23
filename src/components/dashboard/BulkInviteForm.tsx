@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Send, Copy, Check } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 const initialState = {
   error: '',
@@ -17,6 +18,7 @@ const initialState = {
 export function BulkInviteForm({ referralCode }: { referralCode: string }) {
   const [state, formAction, isPending] = useActionState(inviteUsers, initialState)
   const [copied, setCopied] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     if (state?.success) {
@@ -24,10 +26,12 @@ export function BulkInviteForm({ referralCode }: { referralCode: string }) {
       if (state.failures > 0) {
         toast.warning(`Failed to send to ${state.failures} addresses.`)
       }
+      // Refresh the page to show updated invite statuses
+      router.refresh()
     } else if (state?.error) {
       toast.error(state.error)
     }
-  }, [state])
+  }, [state, router])
 
   const copyToClipboard = () => {
     const url = `${window.location.origin}/signup?ref=${referralCode}`

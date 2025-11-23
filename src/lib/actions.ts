@@ -3,6 +3,7 @@
 import { Resend } from 'resend'
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
+import { revalidatePath } from 'next/cache'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -82,6 +83,10 @@ export async function inviteUser(prevState: { error?: string; success?: boolean 
       email,
       referrer_id: user.id,
     })
+
+    // Revalidate both dashboard pages to show updated invite statuses
+    revalidatePath('/dashboard')
+    revalidatePath('/dashboard/referrals')
 
     return { success: true }
   } catch (error) {
@@ -185,6 +190,10 @@ export async function inviteUsers(prevState: { error?: string; success?: boolean
     if (failures.length > 0 && failures.length === emailList.length) {
       return { success: false, error: 'Failed to send all invites', count: 0, failures: emailList.length }
     }
+
+    // Revalidate both dashboard pages to show updated invite statuses
+    revalidatePath('/dashboard')
+    revalidatePath('/dashboard/referrals')
 
     return { 
       success: true, 

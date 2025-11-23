@@ -6,12 +6,14 @@ import { Copy, Check } from 'lucide-react'
 
 import { toast } from 'sonner'
 import { inviteUser } from '@/lib/actions'
+import { useRouter } from 'next/navigation'
 
 export function InviteSection({ referralCode }: { referralCode: string }) {
   const [copied, setCopied] = useState(false)
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
+  const router = useRouter()
   
   const inviteLink = typeof window !== 'undefined' ? `${window.location.origin}/signup?ref=${referralCode}` : ''
 
@@ -37,6 +39,8 @@ export function InviteSection({ referralCode }: { referralCode: string }) {
       } else {
         toast.success('Invite sent!')
         setEmail('')
+        // Refresh the page to show updated invite statuses
+        router.refresh()
       }
     } catch {
       toast.error('Something went wrong')

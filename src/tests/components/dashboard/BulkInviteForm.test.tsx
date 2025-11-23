@@ -16,6 +16,13 @@ jest.mock('react', () => ({
   useActionState: () => [{}, mockFormAction, mockIsPending]
 }))
 
+// Mock next/navigation
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    refresh: jest.fn()
+  })
+}))
+
 // Mock sonner toast
 jest.mock('sonner', () => ({
   toast: {

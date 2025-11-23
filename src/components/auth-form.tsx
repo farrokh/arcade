@@ -22,6 +22,7 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [signupSuccess, setSignupSuccess] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
   const supabase = createClient()
@@ -54,6 +55,7 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
           router.refresh()
         } else {
           // Email confirmation required
+          setSignupSuccess(true)
           toast.success('Check your email for the confirmation link!')
         }
       } else {
@@ -90,6 +92,48 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
         // data: { referral_code: referralCode } // Removed as it's not reliably supported
       },
     })
+  }
+
+  // Show success message after signup
+  if (signupSuccess && type === 'signup') {
+    return (
+      <div className="w-full max-w-md p-8 rounded-2xl bg-zinc-900 border border-white/10 shadow-2xl">
+        <div className="text-center">
+          {/* Success Icon */}
+          <div className="mx-auto w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mb-6 animate-in zoom-in duration-500">
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+
+          {/* Heading */}
+          <h2 className="text-2xl font-bold text-white mb-3">
+            Check Your Email
+          </h2>
+
+          {/* Message */}
+          <p className="text-zinc-400 mb-6 leading-relaxed">
+            We&apos;ve sent a confirmation link to <span className="text-white font-medium">{email}</span>. 
+            Please check your inbox and click the link to complete your registration.
+          </p>
+
+          {/* Additional Info */}
+          <div className="bg-zinc-800/50 border border-white/5 rounded-xl p-4 mb-6">
+            <p className="text-sm text-zinc-400">
+              <span className="text-cyan-400 font-medium">Tip:</span> If you don&apos;t see the email, check your spam folder.
+            </p>
+          </div>
+
+          {/* Back to Login Link */}
+          <Link 
+            href="/login" 
+            className="inline-block text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors"
+          >
+            Return to login
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   return (
