@@ -2,6 +2,11 @@ import '@testing-library/jest-dom'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { SettingsForm } from '@/components/dashboard/SettingsForm'
 
+// Mock resend to avoid API key requirement
+jest.mock('resend', () => ({
+  Resend: jest.fn().mockImplementation(() => ({}))
+}))
+
 // Mock useActionState
 const mockFormAction = jest.fn()
 const mockIsPending = false

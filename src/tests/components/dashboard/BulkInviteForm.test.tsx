@@ -1,6 +1,11 @@
 import '@testing-library/jest-dom'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { BulkInviteForm } from '@/components/dashboard/BulkInviteForm'
+
+// Mock resend to avoid API key requirement
+jest.mock('resend', () => ({
+  Resend: jest.fn().mockImplementation(() => ({}))
+}))
 
 // Mock useActionState
 const mockFormAction = jest.fn()
