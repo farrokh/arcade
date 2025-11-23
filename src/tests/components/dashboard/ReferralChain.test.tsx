@@ -4,7 +4,7 @@ import { ReferralChain } from '@/components/dashboard/ReferralChain'
 
 // Mock UserAvatar
 jest.mock('@/components/UserAvatar', () => ({
-  UserAvatar: ({ user, label }: any) => (
+  UserAvatar: ({ label }: { label: string }) => (
     <div data-testid="user-avatar">
       <span>{label}</span>
     </div>
@@ -14,7 +14,7 @@ jest.mock('@/components/UserAvatar', () => ({
 // Mock framer-motion
 jest.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, className }: any) => <div className={className}>{children}</div>
+    div: ({ children, className }: { children: React.ReactNode; className?: string }) => <div className={className}>{children}</div>
   }
 }))
 

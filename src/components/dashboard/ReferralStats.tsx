@@ -3,8 +3,12 @@
 import { motion } from 'framer-motion'
 import { Users, UserPlus, Award, TrendingUp } from 'lucide-react'
 
+interface Referral {
+  is_active?: boolean
+}
+
 interface ReferralStatsProps {
-  referrals: any[]
+  referrals: Referral[]
   totalEarned: number
 }
 

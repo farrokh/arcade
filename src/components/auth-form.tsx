@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Button } from './ui/button'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface AuthFormProps {
   type: 'login' | 'signup'
@@ -56,14 +57,14 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
         router.push('/dashboard')
         router.refresh()
       }
-    } catch (err: any) {
-      setError(err.message)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setLoading(false)
     }
   }
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleSignIn = async () => {
     // Store referral code in cookie for callback
     if (referralCode) {
       // Set cookie for 30 days
@@ -89,7 +90,7 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
         <div className="mb-8 p-4 rounded-xl bg-zinc-800/50 border border-white/5 flex items-center gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
           <div className="relative h-12 w-12 rounded-full overflow-hidden border-2 border-cyan-500/30">
             {referrer.avatar_url ? (
-              <img src={referrer.avatar_url} alt={referrer.full_name || 'Referrer'} className="object-cover w-full h-full" />
+              <Image src={referrer.avatar_url} alt={referrer.full_name || 'Referrer'} width={48} height={48} className="object-cover w-full h-full" />
             ) : (
               <div className="w-full h-full bg-zinc-700 flex items-center justify-center text-zinc-400 font-bold">
                 {(referrer.full_name?.[0] || 'R').toUpperCase()}
@@ -157,7 +158,7 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
           variant="outline"
           type="button"
           className="w-full mt-4"
-          onClick={handleGoogleLogin}
+          onClick={handleGoogleSignIn}
         >
           Google
         </Button>
@@ -166,7 +167,7 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
       <div className="mt-6 text-center text-sm text-gray-400">
         {type === 'login' ? (
           <>
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link href="/signup" className="text-cyan-400 hover:underline">
               Sign up
             </Link>

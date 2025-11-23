@@ -3,7 +3,6 @@
 import { useActionState } from 'react'
 import { inviteUsers } from '@/lib/actions'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Send, Copy, Check } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { toast } from 'sonner'

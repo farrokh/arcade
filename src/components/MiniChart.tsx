@@ -3,16 +3,22 @@
 import { motion } from 'framer-motion'
 import { useMemo } from 'react'
 
-export function MiniChart({ transactions }: { transactions: any[] }) {
+interface Transaction {
+  amount: number
+  created_at: string
+}
+
+export function MiniChart({ transactions }: { transactions: Transaction[] }) {
   const data = useMemo(() => {
     // Calculate cumulative mileage over time
     // Reverse transactions to go from oldest to newest
     const sorted = [...transactions].reverse()
-    let runningTotal = 0
-    const points = sorted.map(t => {
-      runningTotal += t.amount
-      return runningTotal
-    })
+    
+    // Use reduce to calculate cumulative totals without mutation
+    const points = sorted.reduce<number[]>((acc, t) => {
+      const lastTotal = acc.length > 0 ? acc[acc.length - 1] : 0
+      return [...acc, lastTotal + t.amount]
+    }, [])
     
     // Add initial 0 point if empty or just to start from 0
     if (points.length === 0) return [0, 0]

@@ -38,7 +38,7 @@ export function InviteSection({ referralCode }: { referralCode: string }) {
         toast.success('Invite sent!')
         setEmail('')
       }
-    } catch (error) {
+    } catch {
       toast.error('Something went wrong')
     } finally {
       setLoading(false)

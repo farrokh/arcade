@@ -17,7 +17,7 @@ const InviteSchema = z.object({
   referralCode: z.string().min(1),
 })
 
-export async function inviteUser(prevState: any, formData: FormData) {
+export async function inviteUser(prevState: { error?: string; success?: boolean } | null, formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -61,7 +61,7 @@ export async function inviteUser(prevState: any, formData: FormData) {
   }
 }
 
-export async function inviteUsers(prevState: any, formData: FormData) {
+export async function inviteUsers(prevState: { error?: string; success?: boolean; count?: number; failures?: number } | null, formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -122,7 +122,7 @@ export async function inviteUsers(prevState: any, formData: FormData) {
     return { success: false, error: 'Failed to send invites', count: 0, failures: 0 }
   }
 }
-export async function updateProfile(prevState: any, formData: FormData) {
+export async function updateProfile(prevState: { error?: string; success?: boolean } | null, formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 

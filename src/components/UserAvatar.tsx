@@ -1,12 +1,21 @@
 'use client'
 
-export function UserAvatar({ user, label, isSmall = false }: { user: any, label: string, isSmall?: boolean }) {
+import Image from 'next/image'
+
+interface User {
+  email?: string
+  avatar_url?: string | null
+}
+
+export function UserAvatar({ user, label, isSmall = false }: { user: User, label: string, isSmall?: boolean }) {
   return (
     <div className="flex flex-col items-center gap-1 w-12">
       {user.avatar_url ? (
-        <img 
+        <Image 
           src={user.avatar_url} 
-          alt="" 
+          alt={user.email || ''} 
+          width={isSmall ? 24 : 32}
+          height={isSmall ? 24 : 32}
           className={`${isSmall ? 'w-6 h-6' : 'w-8 h-8'} rounded-full border border-zinc-700`} 
         />
       ) : (

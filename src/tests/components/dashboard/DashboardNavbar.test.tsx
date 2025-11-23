@@ -4,9 +4,11 @@ import { DashboardNavbar } from '@/components/dashboard/DashboardNavbar'
 
 // Mock next/link
 jest.mock('next/link', () => {
-  return ({ children, href }: any) => {
+  const MockLink = ({ children, href }: { children: React.ReactNode; href: string }) => {
     return <a href={href}>{children}</a>
   }
+  MockLink.displayName = 'Link'
+  return MockLink
 })
 
 // Mock usePathname

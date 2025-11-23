@@ -4,7 +4,14 @@ import { TransactionHistory } from '@/components/dashboard/TransactionHistory'
 
 // Mock ReferralChain to simplify testing
 jest.mock('@/components/dashboard/ReferralChain', () => ({
-  ReferralChain: () => <div data-testid="referral-chain">Referral Chain</div>
+  ReferralChain: () => (<div data-testid="referral-chain">Referral Chain</div>)
+}))
+
+// Mock MiniChart
+jest.mock('@/components/MiniChart', () => ({
+  MiniChart: ({ transactions }: { transactions: unknown[] }) => (
+    <div data-testid="mini-chart">Mini Chart ({transactions.length} transactions)</div>
+  )
 }))
 
 describe('TransactionHistory', () => {
@@ -49,7 +56,7 @@ describe('TransactionHistory', () => {
         source_type: 'referral',
         created_at: '2023-01-02T12:00:00Z',
         source_user: {
-          email: null as any, // Force null to simulate the bug
+          email: null as unknown, // Force null to simulate the bug
           full_name: null,
           avatar_url: null
         }

@@ -1,6 +1,7 @@
 'use client'
 
 import { format } from 'date-fns'
+import Image from 'next/image'
 
 interface Transaction {
   amount: number
@@ -71,7 +72,7 @@ export function TransactionHistory({ transactions, currentUser }: TransactionHis
                     ) : tx.source_user ? (
                       <div className="flex items-center gap-2">
                         {tx.source_user.avatar_url ? (
-                          <img src={tx.source_user.avatar_url} alt="" className="w-5 h-5 rounded-full" />
+                          <Image src={tx.source_user.avatar_url} alt="" width={20} height={20} className="w-5 h-5 rounded-full" />
                         ) : (
                           <div className="w-5 h-5 rounded-full bg-zinc-800 flex items-center justify-center text-[10px]">
                             {(tx.source_user.email || '?')[0].toUpperCase()}

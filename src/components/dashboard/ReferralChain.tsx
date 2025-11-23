@@ -4,7 +4,12 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { UserAvatar } from '../UserAvatar'
 
-export function ReferralChain({ path, currentUser }: { path: any[], currentUser: any }) {
+interface ReferralUser {
+  email: string
+  full_name?: string | null
+}
+
+export function ReferralChain({ path, currentUser }: { path: ReferralUser[], currentUser: ReferralUser }) {
   const [isExpanded, setIsExpanded] = useState(false)
   const fullPath = [currentUser, ...path]
   

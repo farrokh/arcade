@@ -5,7 +5,8 @@ import { MileageChart } from '@/components/dashboard/MileageChart'
 // Mock framer-motion
 jest.mock('framer-motion', () => ({
   motion: {
-    path: (props: any) => <path {...props} />
+    svg: ({ children, ...props }: React.SVGProps<SVGSVGElement>) => <svg {...props}>{children}</svg>,
+    path: (props: React.SVGProps<SVGPathElement>) => <path {...props} />
   }
 }))
 

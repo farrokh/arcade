@@ -20,7 +20,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-zinc-400 leading-relaxed mb-8 max-w-sm">
-              The world's first decentralized protocol for autonomous fleet coordination. 
+              The world&apos;s first decentralized protocol for autonomous fleet coordination. 
               Building the infrastructure for the future of mobility.
             </p>
             <div className="flex gap-4">

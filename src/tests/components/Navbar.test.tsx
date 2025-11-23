@@ -22,7 +22,7 @@ jest.mock('@/lib/supabase/client', () => ({
 // Mock next/image
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => <img {...props} />
+  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => <div data-testid="next-image" {...props} />
 }))
 
 describe('Navbar', () => {

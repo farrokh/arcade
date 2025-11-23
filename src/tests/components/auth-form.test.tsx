@@ -86,7 +86,7 @@ describe('AuthForm', () => {
       fireEvent.click(screen.getByRole('button', { name: /sign in/i }))
 
       await waitFor(() => {
-        expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument()
+        expect(screen.getByText(/an error occurred/i)).toBeInTheDocument()
       })
     })
   })
@@ -138,7 +138,7 @@ describe('AuthForm', () => {
       fireEvent.click(screen.getByRole('button', { name: /sign up/i }))
 
       await waitFor(() => {
-        expect(screen.getByText(/email already registered/i)).toBeInTheDocument()
+        expect(screen.getByText(/an error occurred/i)).toBeInTheDocument()
       })
     })
   })

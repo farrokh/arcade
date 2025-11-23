@@ -5,7 +5,7 @@ import { Features } from '@/components/Features'
 // Mock framer-motion to avoid animation issues in tests
 jest.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, className }: any) => <div className={className}>{children}</div>
+    div: ({ children, className }: { children: React.ReactNode; className?: string }) => <div className={className}>{children}</div>
   }
 }))
 

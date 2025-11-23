@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useSpring, useTransform, useMotionValue, useInView } from 'framer-motion'
+import { useSpring, useMotionValue, useInView } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 
 interface CounterProps {

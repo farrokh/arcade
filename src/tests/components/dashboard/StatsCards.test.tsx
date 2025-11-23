@@ -5,7 +5,7 @@ import { StatsCards } from '@/components/dashboard/StatsCards'
 // Mock framer-motion
 jest.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, className }: any) => <div className={className}>{children}</div>
+    div: ({ children, className }: { children: React.ReactNode; className?: string }) => <div className={className}>{children}</div>
   }
 }))
 

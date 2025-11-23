@@ -13,11 +13,16 @@ type Profile = {
   email: string
 }
 
+interface Transaction {
+  amount: number
+  created_at: string
+}
+
 interface HeroProps {
   user: User | null
   profile: Profile | null
   mileage: number
-  transactions: any[]
+  transactions: Transaction[]
 }
 
 import { MiniChart } from './MiniChart'
@@ -58,8 +63,8 @@ export function Hero({ user, profile, mileage, transactions }: HeroProps) {
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-zinc-300 max-w-xl mb-10 font-light leading-relaxed">
-              The world's first decentralized protocol for autonomous fleet coordination. Earn rewards for every mile your fleet drives.
+            <p className="text-zinc-400 text-lg max-w-2xl mx-auto leading-relaxed">
+              Join the world&apos;s first decentralized autonomous fleet. Earn miles through network participation and recursive referral rewards.
             </p>
 
             {!user && (
