@@ -188,6 +188,14 @@ export function AuthForm({ type, referrer }: AuthFormProps) {
             aria-label="Password"
           />
         </div>
+        <div className="flex justify-end">
+          <Link 
+            href="/forgot-password" 
+            className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+          >
+            Forgot password?
+          </Link>
+        </div>
 
         {error && <div className="text-red-500 text-sm">{error}</div>}
 
