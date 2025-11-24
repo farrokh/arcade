@@ -13,7 +13,7 @@ A Next.js application for the Universal Autonomous Protocol, featuring a recursi
 -   **One-Time Password (OTP) Login)**: Implemented for quick login during development.
 -   **User Roles**: Planned implementation to support role-based access control.
 -   **Mailing System**: Integrated with Resend to send invite emails.
--   **Modern UI**: "Cyberpunk Luxury" aesthetic with glassmorphism, neon accents, and digital HUD elements.
+-   **Modern UI**: Modern and sleek design with glassmorphism, neon accents, and digital HUD elements.
 -   **Accessibility**: WCAG compliant with semantic HTML, ARIA labels, and keyboard navigation support.
 
 ## Tech Stack
@@ -22,9 +22,12 @@ A Next.js application for the Universal Autonomous Protocol, featuring a recursi
 -   **Language**: TypeScript
 -   **Styling**: Tailwind CSS v4
 -   **Runtime**: Bun
--   **Database & Auth**: Supabase
+-   **Database & Auth**: Supabase (supports OTP login)
 -   **Email**: Resend
 -   **Animations**: Framer Motion
+-   **Admin Interface**: Custom admin dashboard
+-   **Auth Method**: One‑Time Password (OTP) login for quick development
+-   **User Roles**: Role‑based access control (planned)
 
 ## Getting Started
 
@@ -55,7 +58,10 @@ A Next.js application for the Universal Autonomous Protocol, featuring a recursi
     ```env
     NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
     NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+    SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
     RESEND_API_KEY=your_resend_api_key
+    ADMIN_PASSWORD=your_admin_password
+    NEXT_PUBLIC_URL=your_nextjs_url
     ```
 
 4.  Set up Database:
@@ -79,10 +85,15 @@ The easiest way to deploy is to use the [Vercel Platform](https://vercel.com/new
 
 1.  Push your code to a GitHub repository.
 2.  Import the project in Vercel.
-3.  Add the environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `RESEND_API_KEY`,`NEXT_PUBLIC_URL`,`NEXT_PUBLIC_URL`,`ADMIN_PASSWORD`).
+3.  Add the environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`,`NEXT_PUBLIC_URL`,`ADMIN_PASSWORD`).
 4. Deploy!
 5. Access the admin dashboard at `/admin` using the admin password set in `ADMIN_PASSWORD`. its default value is `password`.
 ## Testing
+
+- **Unit Tests**: Verify individual components and utilities using Jest.
+- **Integration Tests**: Ensure end‑to‑end functionality across pages and API routes.
+- **Coverage**: Generate coverage reports with `bun run test --coverage`.
+- **Build Verification**: Confirm the production build succeeds.
 
 Run the test suite:
 ```bash
