@@ -237,3 +237,33 @@ export async function updateProfile(prevState: { error?: string; success?: boole
     return { success: false, error: 'Failed to update profile' }
   }
 }
+
+export async function verifyAdminPassword(prevState: { error?: string; success?: boolean } | null, formData: FormData) {
+  const password = formData.get('password') as string
+  const adminPassword = process.env.ADMIN_PASSWORD
+
+  if (!adminPassword) {
+    return { success: false, error: 'Admin access not configured' }
+  }
+
+  if (password !== adminPassword) {
+    return { success: false, error: 'Invalid password' }
+  }
+
+  // Set a cookie to maintain admin session
+  const { cookies } = await import('next/headers')
+  const cookieStore = await cookies()
+  
+  // Create a simple session token (in production, use proper JWT or session management)
+  const sessionToken = Buffer.from(`admin:${Date.now()}`).toString('base64')
+  
+  cookieStore.set('admin_session', sessionToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 24, // 24 hours
+    path: '/',
+  })
+
+  return { success: true }
+}

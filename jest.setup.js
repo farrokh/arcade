@@ -2,6 +2,7 @@ import '@testing-library/jest-dom'
 
 // Polyfill for TextEncoder/TextDecoder required by Next.js in test environment
 if (typeof global.TextEncoder === 'undefined') {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { TextEncoder, TextDecoder } = require('util')
   global.TextEncoder = TextEncoder
   global.TextDecoder = TextDecoder
