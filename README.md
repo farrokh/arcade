@@ -9,6 +9,9 @@ A Next.js application for the Universal Autonomous Protocol, featuring a recursi
     -   **Direct Referral**: 50 miles.
     -   **Recursive Referral**: Earn credits when your friends invite others (up to 10 levels deep).
 -   **Dashboard**: Real-time mileage counter, referral tracking (Active vs Pending conversions), and invite management.
+-   **Admin Features**: User management, invitation oversight, and analytics dashboards.
+-   **One-Time Password (OTP) Login)**: Implemented for quick login during development.
+-   **User Roles**: Planned implementation to support role-based access control.
 -   **Mailing System**: Integrated with Resend to send invite emails.
 -   **Modern UI**: "Cyberpunk Luxury" aesthetic with glassmorphism, neon accents, and digital HUD elements.
 -   **Accessibility**: WCAG compliant with semantic HTML, ARIA labels, and keyboard navigation support.
@@ -76,9 +79,9 @@ The easiest way to deploy is to use the [Vercel Platform](https://vercel.com/new
 
 1.  Push your code to a GitHub repository.
 2.  Import the project in Vercel.
-3.  Add the environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `RESEND_API_KEY`,`NEXT_PUBLIC_URL`).
-4.  Deploy!
-
+3.  Add the environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `RESEND_API_KEY`,`NEXT_PUBLIC_URL`,`NEXT_PUBLIC_URL`,`ADMIN_PASSWORD`).
+4. Deploy!
+5. Access the admin dashboard at `/admin` using the admin password set in `ADMIN_PASSWORD`. its default value is `password`.
 ## Testing
 
 Run the test suite:
