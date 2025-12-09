@@ -16,7 +16,8 @@ export function CelebrationOverlay({ milestone, shouldCelebrate }: CelebrationOv
 
   useEffect(() => {
     if (shouldCelebrate && milestone) {
-      setIsVisible(true)
+      // Use setTimeout to avoid synchronous state update warning
+      setTimeout(() => setIsVisible(true), 0)
       // Fire confetti
       const duration = 3000
       const end = Date.now() + duration
@@ -101,7 +102,7 @@ export function CelebrationOverlay({ milestone, shouldCelebrate }: CelebrationOv
               transition={{ delay: 0.4 }}
               className="mb-8 text-zinc-400"
             >
-              You've hit a major milestone! You have successfully invited {milestone} friends to the platform.
+              You&apos;ve hit a major milestone! You have successfully invited {milestone} friends to the platform.
             </motion.p>
 
             <motion.button
