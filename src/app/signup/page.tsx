@@ -2,12 +2,20 @@ import { Suspense } from 'react'
 import { AuthForm } from '@/components/auth-form'
 import { Navbar } from '@/components/Navbar'
 import { getReferrer } from '@/lib/dal'
+import { getUser } from '@/lib/dal'
+import { redirect } from 'next/navigation'
 
 export default async function SignupPage({
   searchParams,
 }: {
   searchParams: Promise<{ ref?: string }>
 }) {
+  const user = await getUser()
+
+  if (user) {
+    redirect('/dashboard')
+  }
+
   const params = await searchParams
   let referrer = null
 

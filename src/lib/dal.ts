@@ -23,7 +23,7 @@ export const getProfile = cache(async (userId: string) => {
   const supabase = await createClient()
   const { data } = await supabase
     .from('users')
-    .select('referral_code, full_name, avatar_url, email')
+    .select('referral_code, full_name, avatar_url, email, milestones, last_celebrated_milestone')
     .eq('id', userId)
     .single()
   return data
